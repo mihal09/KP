@@ -56,7 +56,7 @@ public class figury {
                     int bok = Integer.valueOf(args[wskaznik]);
                     wskaznik++;
 
-                    figury[i] = new Pieciokat(bok);
+                    figury[i] = new Szesciokat(bok);
 
                 }
             }
