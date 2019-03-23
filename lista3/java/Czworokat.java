@@ -1,15 +1,5 @@
-public class Czworokat extends Figura {
-    private int bok1, bok2, bok3, bok4, kat;
-
-    @Override
-    public double Obwod() {
-        return bok1 + bok2 + bok3 + bok4;
-    }
-
-    @Override
-    public double Pole() {
-        return bok1 * bok3 * Math.sin(kat*Math.PI/180.0);
-    }
+public abstract class Czworokat extends Figura {
+    protected int bok1, bok2, bok3, bok4, kat;
 
     public Czworokat(int bok1, int bok2, int bok3, int bok4, int kat) throws Exception{
         if(bok1 <= 0 || bok2<=0 || bok3 <= 0 || bok4<=0)
