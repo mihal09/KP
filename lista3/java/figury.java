@@ -45,15 +45,10 @@ public class figury {
                                 figury[i] = new Romb(bok1, kat);
                         }
                         else if(kat==90){ //tworzymy prostokat
-                            int bokX, bokY;
-                            bokX = bok1;
-                            if(bokX != bok2)
-                                bokY = bok2;
-                            else if(bokX!=bok3)
-                                bokY = bok3;
+                            if(bok1!=bok2)
+                                figury[i] = new Prostokat(bok1, bok2);
                             else
-                                bokY = bok4;
-                            figury[i] = new Prostokat(bokX, bokY);
+                                figury[i] = new Prostokat(bok1, bok3);
                         }
                         else{ // rownoleglobok nie jest prostokatem, rombem ani kwadratem
                             throw new Exception("Figura jest rownoleglobokiem, ale nie jest prostokatem, rombem ani kwadratem");
