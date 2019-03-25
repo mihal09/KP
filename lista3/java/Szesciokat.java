@@ -12,6 +12,7 @@ public class Szesciokat extends Figura {
     }
 
     public Szesciokat(int bok) throws Exception{
+		this.nazwa = "Szesciokat";
         if(bok<=0)
             throw new Exception("Niedodatni bok!");
         this.bok = bok;
