@@ -1,9 +1,42 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
 
 /*--------------------------------------------------------------------*/
+class Helper {
+    static public ArrayList<String> getCommand(String commandString){
+        ArrayList<String> result = new ArrayList<>();
+        String command = "trojkat.exe "+commandString;
+        String s;
+        try {
+            String[] napisy = {"cmd.exe", "/C", command};
+            Process p = Runtime.getRuntime().exec(napisy);
+
+            BufferedReader stdInput = new BufferedReader(new
+                    InputStreamReader(p.getInputStream()));
+
+            // read the output from the command
+            //System.out.println("Here is the standard output of the command:\n");
+            while ((s = stdInput.readLine()) != null) {
+                result.add(s);
+                // System.out.println(s);
+            }
+            int exitVal = p.waitFor();
+            // System.out.println("ExitValue: " + exitVal);
+        }
+        catch(Exception e){
+            //System.out.println(e);
+        }
+
+        return result;
+    }
+}
+
 //ZAMYKANIE
 class MyWindowAdapter extends WindowAdapter {
     public void windowClosing(WindowEvent e) { System.exit(0); }
@@ -20,7 +53,7 @@ class MyButtonAdapter implements ActionListener {
 
 class MyButton extends Button {
     MyButton(MyFrame f) {
-        super("Narysuj");
+        super("Uruchom program");
         addActionListener(new MyButtonAdapter(f));
     }
 }
@@ -55,11 +88,9 @@ class MyFrame extends Frame {
                 remove(label);
             }
             labels.clear();
-            int n = Integer.parseInt(dane.getText())-1;
-            if(n<0)
-                throw new Exception("Podaj nieujemną liczbę!");
-            TrojkatPascala t = new TrojkatPascala(n);
-            for(String linijka : t.trojkatWiersze){
+            String command = dane.getText();
+            System.out.println(Helper.getCommand(command).toString());
+            for(String linijka : Helper.getCommand(command)){
                 System.out.println(linijka);
                 Label label = new Label(linijka, Label.CENTER);
                 labels.add(label);
@@ -69,7 +100,7 @@ class MyFrame extends Frame {
         }
         catch(Exception e){
             labels.clear();
-            Label label = new Label("Podaj poprawną liczbę!", Label.CENTER);
+            Label label = new Label("Podaj poprawne wejście!", Label.CENTER);
             add(label);
             labels.add(label);
             doLayout();
@@ -77,11 +108,9 @@ class MyFrame extends Frame {
     }
 }
 
-/*--------------------------------------------------------------------*/
-
 
 public class GUI {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         MyFrame frame = new MyFrame();
         frame.setVisible(true);
     }
